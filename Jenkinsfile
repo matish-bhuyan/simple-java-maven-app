@@ -1,4 +1,4 @@
-pipeline{
+  pipeline{
   agent {
     docker {
       image 'maven:3-alpine'
@@ -17,5 +17,12 @@ pipeline{
       }
       
   }
+     stage("build & SonarQube analysis") {
+            steps {
+              withSonarQubeEnv('SonarQube') {
+                sh 'mvn sonar:sonar'
+            }
+        }
+    }
   }
 }
